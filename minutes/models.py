@@ -83,6 +83,9 @@ def update_user_profile(sender, instance, created, **kwargs):
 
 
 class Point(models.Model):
+    """
+    I need followup points for each point
+    """
     minute = models.ForeignKey(Minute, on_delete=models.CASCADE, related_name='points')
     # need validation or permission to ensure only member belonging to minute's
     # agenda's author's program
