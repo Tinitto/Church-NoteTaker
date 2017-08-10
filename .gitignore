@@ -1,0 +1,7 @@
+oldcell/settings.py
+location/migrations
+minutes/migrations
+organization/migrations
+program/migrations
+uploads
+user/migrations
