@@ -31,14 +31,6 @@ POINT_TYPES = (
 
 
 
-class Reference(models.Model):
-    source_type = models.CharField(max_length=2, choices=SOURCE_TYPES, default='BI')
-    book = models.CharField(max_length=255, default='', blank=True)
-    chapter = models.IntegerField(null=True, blank=True)
-    verse = models.IntegerField(null=True, blank=True)
-    url = models.URLField(null=True, blank=True)
-
-
 class Agenda(models.Model):
     # ensure this is an editor role
     author = models.ForeignKey('program.Member', on_delete=models.SET_NULL, null=True,
@@ -61,8 +53,6 @@ class Minute(models.Model):
     agenda = models.ForeignKey(Agenda, on_delete=models.CASCADE,
                                related_name='minutes')
     title = models.CharField(max_length=255)
-    references = models.ManyToManyField(Reference,
-                                   blank=True)
     last_modified = models.DateTimeField(auto_now=True)
     added_on = models.DateTimeField(auto_now_add=True)
 
@@ -95,11 +85,51 @@ class Point(models.Model):
                               help_text='Feed in not more than 140 characters')
     privacy = models.IntegerField(choices=PRIVACY_OPTIONS, default=0)  # public
     point_type = models.CharField(max_length=3, choices=POINT_TYPES, default='GC')
-    references = models.ManyToManyField(Reference, blank=True)
     last_modified = models.DateTimeField(auto_now=True)
     added_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         unique_together = (('author', 'minute', 'text_detail'),)
 
+class Reference(models.Model):
+    source_type = models.CharField(max_length=2, choices=SOURCE_TYPES, default='BI')
+    book = models.CharField(max_length=255, default='', blank=True)
+    chapter = models.IntegerField(null=True, blank=True)
+    verse = models.IntegerField(null=True, blank=True)
+    url = models.URLField(null=True, blank=True)
+    # a reference can be attached to a point or a minute
+    point = models.ForeignKey(Point, null=True, blank=True, related_name='references')
+    minute = models.ForeignKey(Minute, null=True, blank=True, related_name='references')
 
+
+#class Comment(models.Model):
+ #   user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
+ #   point = models.ForeignKey(Point, on_delete=models.CASCADE, related_name='comments')
+ #   text_detail = models.CharField(max_length=140)
+ #   last_modified = models.DateTimeField(auto_now=True)
+ #   added_on = models.DateTimeField(auto_now_add=True)
+
+#class Activity(models.Model):
+ #   AGREE = 'A'
+  #  DISAGREE = 'D'
+ #   REPORT = 'R'
+ #   SAVE_OFFLINE = 'S'
+  #  ACTIVITY_TYPE = (
+  #      (AGREE, 'Agree'),
+  #      (DISAGREE, 'Disagree'),
+  #      (SAVE_OFFLINE, 'Save offline'), # will be saved in off line data store
+  #      (REPORT, 'Report') # will be shown to admin as reported
+  #  )
+  #  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  #  activity_type = models.CharField(max_length=1, choices=ACTIVITY_TYPE,
+  #                                   default=SAVE_OFFLINE)
+    # save offline
+  #  agenda = models.ForeignKey(Agenda, null=True, related_name='offline_saves')
+    # report
+  #  minute = models.ForeignKey(Minute, null=True, related_name='reports')
+    # agree, disagree, report
+  #  comment = models.ForeignKey(Comment, null=True, related_name='reactions')
+    # agree, diagree, report
+  #  point = models.ForeignKey(Point, null=True, related_name='reactions')
+  #  last_modified = models.DateTimeField(auto_now=True)
+  #  added_on = models.DateTimeField(auto_now_add=True)

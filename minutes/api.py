@@ -1,7 +1,7 @@
 from rest_framework import viewsets, permissions
 from .serializers import ReferenceSerializer, Reference, \
     Agenda, AgendaSerializer, Minute, MinuteSerializer, Point, \
-    PointSerializer
+    PointSerializer #, AgendaViewSerializer
 from program import permissions as program_permissions
 from .permissions import IsPointAuthorOrReadOnly
 
@@ -21,12 +21,19 @@ class AgendaViewSet(viewsets.ModelViewSet):
         program_permissions.IsProgramEditorOrReadOnly
     )
 
-  #  def perform_create(self, serializer):
-   #     serializer.save(current_user=self.request.user)
+#class AgendaPublicViewSet(viewsets.ModelViewSet):
+#    queryset = Agenda.objects.all()  # .\
+#    # filter(author__program__organization__approved=True)
+#    serializer_class = AgendaViewSerializer
+#    permission_classes = (
+#        permissions.IsAuthenticatedOrReadOnly,
+#    )
 
-    # def perform_create -- add current user's me
-    # or probably add thsi tho the view that creates the agenda
-    # i.e. the member view
+#    def perform_create(self, serializer):
+#        serializer.save(current_user=self.request.user)
+
+#    def perform_update(self, serializer):
+ #       serializer.save(current_user=self.request.user)
 
 
 class MinuteViewSet(viewsets.ModelViewSet):

@@ -1,9 +1,10 @@
 from rest_framework import routers
 from django.conf.urls import url, include
 from .api import ReferenceViewSet, AgendaViewSet, MinuteViewSet, \
-    PointViewSet
+    PointViewSet #, AgendaPublicViewSet
 
 router = routers.SimpleRouter()
+#router.register(r'agenda', AgendaPublicViewSet, base_name='cell-api-agenda-public')
 router.register(r'agenda', AgendaViewSet, base_name='cell-api-agenda')
 router.register(r'minute', MinuteViewSet, base_name='cell-api-minute')
 router.register(r'point', PointViewSet, base_name='cell-api-point')
