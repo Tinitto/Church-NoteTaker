@@ -95,5 +95,5 @@ A number of things are yet to be added.
 ## News
 I am currently unable to actively develop this API to full completion as quickly as I had hoped due to other pressing obligations.
 
-I thus welcome any pull requests. Ensure that your code follows the PEP8 guidelines and is appropraitely commented so that I can quickly add it in if it is relevant.
+I thus welcome any pull requests. Ensure that your code follows the PEP8 guidelines and is appropriately commented so that I can quickly add it in if it is relevant.
 
