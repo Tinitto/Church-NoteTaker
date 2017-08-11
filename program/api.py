@@ -9,7 +9,12 @@ from .permissions import IsProgramAdminOrReadOnly
 
 
 class PermittedUserAttributesViewSet(viewsets.ModelViewSet):
-    queryset = PermittedUserAttributes.objects.all().filter(program__organization__approved=True)
+    """
+    Remove the # from the all().filter(...) to allow only
+     approved organizations details to show
+    """
+    queryset = PermittedUserAttributes.objects.all()#.\
+        #filter(program__organization__approved=True)
     serializer_class = PermittedUserAttributesSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
                           org_permissions.IsOrganizationAdminOrReadOnly)
@@ -18,6 +23,8 @@ class PermittedUserAttributesViewSet(viewsets.ModelViewSet):
 class MemberViewSet(SearcheableUserModelViewSet):
     """
     Only Program admins are allowed to edit or approve members
+    Remove the # from the all().filter(...) to allow only
+     approved organizations details to show
     """
     queryset = Member.objects.all()#.filter(program__organization__approved=True)
     serializer_class = MemberSerializer
@@ -28,6 +35,8 @@ class MemberViewSet(SearcheableUserModelViewSet):
 class ProgramViewSet(SearcheableModelViewSet):
     """
     Only Organization admins are allowed to edit any program
+    Remove the # from the all().filter(...) to allow only
+     approved organizations details to show
     """
     queryset = Program.objects.all()#.filter(organization__approved=True)
     serializer_class = ProgramSerializer

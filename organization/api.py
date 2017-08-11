@@ -26,6 +26,10 @@ class CategoryViewSet(SearcheableModelViewSet):
 
 
 class OrganizationViewSet(SearcheableModelViewSet):
+    """
+    Remove the # from the all().filter(...) to allow only
+     approved organizations details to show
+    """
     queryset = Organization.objects.all()#.filter(approved=True)
     serializer_class = OrganizationSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
@@ -36,6 +40,10 @@ class OrganizationViewSet(SearcheableModelViewSet):
 
 
 class BranchViewSet(SearcheableModelViewSet):
+    """
+    Remove the # from the all().filter(...) to allow only
+     approved organizations details to show
+    """
     queryset = Branch.objects.all()#.filter(organization__approved=True)
     serializer_class = BranchSerializer
     permission_classes = (permissions.IsAuthenticated,

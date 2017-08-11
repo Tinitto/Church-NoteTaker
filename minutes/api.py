@@ -13,6 +13,10 @@ class ReferenceViewSet(viewsets.ModelViewSet):
 
 
 class AgendaViewSet(viewsets.ModelViewSet):
+    """
+    Remove the # from the all().filter(...) to allow only
+     approved organizations details to show
+    """
     queryset = Agenda.objects.all()#.\
        # filter(author__program__organization__approved=True)
     serializer_class = AgendaSerializer
@@ -37,6 +41,10 @@ class AgendaViewSet(viewsets.ModelViewSet):
 
 
 class MinuteViewSet(viewsets.ModelViewSet):
+    """
+    Remove the # from the all().filter(...) to allow only
+     approved organizations details to show
+    """
     queryset = Minute.objects.all()#.\
         #filter(agenda__author__program__organization__approved=True)
     serializer_class = MinuteSerializer
@@ -54,6 +62,10 @@ class MinuteViewSet(viewsets.ModelViewSet):
 
 
 class PointViewSet(viewsets.ModelViewSet):
+    """
+    Remove the # from the all().filter(...) to allow only
+     approved organizations details to show
+    """
     queryset = Point.objects.all()#.\
         #filter(minute__agenda__author__program__organization__approved=True)
     serializer_class = PointSerializer
