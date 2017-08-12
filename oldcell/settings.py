@@ -88,8 +88,8 @@ WSGI_APPLICATION = 'oldcell.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'celldbv2',         # 'celldb', this is for meenut_users only
-        'USER': 'startups',
+        'NAME': 'churchnote_db',
+        'USER': 'dummy',
         'PASSWORD': 'pass',
         'HOST': '127.0.0.1',
         'PORT': '5432'
@@ -121,7 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Africa/Kampala'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
